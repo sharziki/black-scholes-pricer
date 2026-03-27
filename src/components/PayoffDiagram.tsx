@@ -1,4 +1,4 @@
-import Plot from 'react-plotly.js';
+import { Plot } from '../lib/plotlyPlot';
 import { generatePayoffData } from '../lib/blackScholes';
 import type { BlackScholesInputs } from '../lib/blackScholes';
 

@@ -1,4 +1,4 @@
-import Plot from 'react-plotly.js';
+import { Plot } from '../lib/plotlyPlot';
 import { useState } from 'react';
 import { generateGreekSensitivity } from '../lib/blackScholes';
 import type { BlackScholesInputs } from '../lib/blackScholes';

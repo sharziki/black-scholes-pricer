@@ -1,4 +1,4 @@
-import Plot from 'react-plotly.js';
+import { Plot } from '../lib/plotlyPlot';
 import { useState } from 'react';
 import { generateSurfaceData } from '../lib/blackScholes';
 import type { BlackScholesInputs } from '../lib/blackScholes';
