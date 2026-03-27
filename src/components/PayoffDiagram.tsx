@@ -1,4 +1,6 @@
 import { Plot } from '../lib/plotlyPlot';
+import { SectionHeader } from './SectionHeader';
+import { chartPanelClass } from './chartClasses';
 import { generatePayoffData } from '../lib/blackScholes';
 import type { BlackScholesInputs } from '../lib/blackScholes';
 
@@ -16,12 +18,14 @@ export function PayoffDiagram({ inputs }: PayoffDiagramProps) {
   const payoffData = generatePayoffData(inputs, priceRange);
 
   return (
-    <div className="bg-[hsl(var(--card))] rounded-xl border border-[hsl(var(--border))] p-6">
-      <h2 className="text-lg font-semibold text-[hsl(var(--foreground))] mb-4">
-        Payoff Diagram
-      </h2>
+    <div className="panel p-7 sm:p-9 lg:p-10">
+      <SectionHeader
+        title="Payoff diagram"
+        subtitle="Intrinsic-style payoff at expiry (dashed) versus full theoretical value from Black–Scholes (solid)."
+      />
 
-      <Plot
+      <div className={chartPanelClass}>
+        <Plot
         data={[
           {
             x: payoffData.prices,
@@ -118,16 +122,20 @@ export function PayoffDiagram({ inputs }: PayoffDiagramProps) {
           displayModeBar: false,
         }}
         style={{ width: '100%' }}
-      />
+        />
+      </div>
 
-      <div className="flex items-center justify-center gap-6 mt-4 text-xs text-[hsl(var(--muted-foreground))]">
+      <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4 mt-8 pt-2 text-xs text-[hsl(var(--muted-foreground))]">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-0.5 bg-[hsl(var(--call))]" style={{ borderStyle: 'dashed', borderWidth: '1px 0' }} />
-          <span>Payoff at expiration</span>
+          <div
+            className="w-9 h-0.5 bg-[hsl(var(--call))]"
+            style={{ borderStyle: 'dashed', borderWidth: '1px 0' }}
+          />
+          <span>Payoff at expiry</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-8 h-0.5 bg-[hsl(var(--call))]" />
-          <span>Current theoretical value</span>
+          <div className="w-9 h-0.5 bg-[hsl(var(--call))]" />
+          <span>BS value (now)</span>
         </div>
       </div>
     </div>

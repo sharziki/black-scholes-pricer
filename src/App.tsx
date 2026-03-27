@@ -8,6 +8,7 @@ import { Surface3D } from './components/Surface3D';
 import { PayoffDiagram } from './components/PayoffDiagram';
 import { GreekSensitivity } from './components/GreekSensitivity';
 import { ExportButton } from './components/ExportButton';
+import { SectionHeader } from './components/SectionHeader';
 import { blackScholes, calculateGreeks } from './lib/blackScholes';
 import type { BlackScholesInputs } from './lib/blackScholes';
 
@@ -38,31 +39,31 @@ function App() {
   const putTimeValue = result.putPrice - putIntrinsic;
 
   return (
-    <div className="min-h-screen bg-[hsl(var(--background))]">
-      {/* Header */}
-      <header className="border-b border-[hsl(var(--border))] bg-[hsl(var(--card))]/50 backdrop-blur-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-[hsl(var(--primary))]/10 rounded-lg">
-                <Activity className="w-6 h-6 text-[hsl(var(--primary))]" />
+    <div className="min-h-screen app-shell">
+      <header className="sticky top-0 z-50 border-b border-[hsl(var(--border))]/80 bg-[hsl(var(--card))]/75 backdrop-blur-md backdrop-saturate-150">
+        <div className="max-w-[90rem] mx-auto px-5 sm:px-8 lg:px-12 py-4 sm:py-5">
+          <div className="flex items-center justify-between gap-5 sm:gap-8">
+            <div className="flex items-center gap-4 min-w-0">
+              <div className="p-3 rounded-xl bg-[hsl(var(--primary))]/12 ring-1 ring-[hsl(var(--primary))]/20 shadow-sm shrink-0">
+                <Activity className="w-5 h-5 sm:w-6 sm:h-6 text-[hsl(var(--primary))]" strokeWidth={2.25} />
               </div>
-              <div>
-                <h1 className="text-xl font-bold text-[hsl(var(--foreground))]">
+              <div className="min-w-0">
+                <h1 className="text-lg sm:text-xl font-semibold tracking-tight text-[hsl(var(--foreground))]">
                   Black-Scholes Pricer
                 </h1>
-                <p className="text-xs text-[hsl(var(--muted-foreground))]">
+                <p className="text-xs sm:text-sm text-[hsl(var(--muted-foreground))] truncate sm:whitespace-normal">
                   Options pricing with Greeks visualization
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3 sm:gap-4 shrink-0">
               <ExportButton inputs={inputs} result={result} greeks={greeks} />
               <a
-                href="https://github.com"
+                href="https://github.com/sharziki/black-scholes-pricer"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] transition-colors"
+                className="p-2.5 rounded-xl text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] hover:bg-[hsl(var(--secondary))] transition-colors"
+                aria-label="View source on GitHub"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
@@ -73,15 +74,15 @@ function App() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid lg:grid-cols-12 gap-8">
-          {/* Input Panel */}
-          <div className="lg:col-span-4 space-y-6">
-            <div className="bg-[hsl(var(--card))] rounded-xl border border-[hsl(var(--border))] p-6">
-              <h2 className="text-lg font-semibold text-[hsl(var(--foreground))] mb-6">
-                Parameters
-              </h2>
-              <div className="space-y-6">
+      <main className="max-w-[90rem] mx-auto px-5 sm:px-8 lg:px-12 py-10 sm:py-14 lg:py-16">
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 xl:gap-14">
+          <div className="lg:col-span-4 flex flex-col gap-8 lg:gap-10">
+            <div className="panel p-7 sm:p-9 lg:p-10">
+              <SectionHeader
+                title="Parameters"
+                subtitle="Adjust inputs to update prices, Greeks, and charts in real time."
+              />
+              <div className="space-y-9 sm:space-y-10">
                 <InputSlider
                   label="Spot Price"
                   value={spotPrice}
@@ -135,8 +136,7 @@ function App() {
               </div>
             </div>
 
-            {/* Price Cards */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4 sm:gap-5">
               <PriceCard
                 type="call"
                 price={result.callPrice}
@@ -152,14 +152,13 @@ function App() {
             </div>
           </div>
 
-          {/* Main Content */}
-          <div className="lg:col-span-8 space-y-6">
-            {/* Greeks Dashboard */}
-            <div className="bg-[hsl(var(--card))] rounded-xl border border-[hsl(var(--border))] p-6">
-              <h2 className="text-lg font-semibold text-[hsl(var(--foreground))] mb-4">
-                Greeks Dashboard
-              </h2>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="lg:col-span-8 flex flex-col gap-10 sm:gap-12 lg:gap-14">
+            <div className="panel p-7 sm:p-9 lg:p-10">
+              <SectionHeader
+                title="Greeks"
+                subtitle="Risk sensitivities for the current Black-Scholes inputs; bars are scaled per Greek’s typical range."
+              />
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-5 lg:gap-6">
                 <GreekGauge
                   name="Delta"
                   symbol="Δ"
@@ -224,9 +223,9 @@ function App() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-[hsl(var(--border))] mt-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-[hsl(var(--muted-foreground))]">
+      <footer className="border-t border-[hsl(var(--border))]/80 mt-16 sm:mt-20 bg-[hsl(var(--card))]/30">
+        <div className="max-w-[90rem] mx-auto px-5 sm:px-8 lg:px-12 py-10 sm:py-12">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-5 sm:gap-8 text-sm text-[hsl(var(--muted-foreground))]">
             <p>Black-Scholes Options Pricer — Educational purposes only</p>
             <p>
               Built with React, TypeScript, and Plotly

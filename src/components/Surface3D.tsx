@@ -1,5 +1,7 @@
 import { Plot } from '../lib/plotlyPlot';
 import { useState } from 'react';
+import { SectionHeader } from './SectionHeader';
+import { chartPanelClass } from './chartClasses';
 import { generateSurfaceData } from '../lib/blackScholes';
 import type { BlackScholesInputs } from '../lib/blackScholes';
 
@@ -40,37 +42,40 @@ export function Surface3D({ inputs }: Surface3DProps) {
         [1, 'rgb(252, 165, 165)'],
       ];
 
-  return (
-    <div className="bg-[hsl(var(--card))] rounded-xl border border-[hsl(var(--border))] p-6">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-semibold text-[hsl(var(--foreground))]">
-          Option Price Surface
-        </h2>
-        <div className="flex gap-2">
-          <button
-            onClick={() => setOptionType('call')}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-              optionType === 'call'
-                ? 'bg-[hsl(var(--call))] text-white'
-                : 'bg-[hsl(var(--secondary))] text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))]'
-            }`}
-          >
-            Call
-          </button>
-          <button
-            onClick={() => setOptionType('put')}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-              optionType === 'put'
-                ? 'bg-[hsl(var(--put))] text-white'
-                : 'bg-[hsl(var(--secondary))] text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))]'
-            }`}
-          >
-            Put
-          </button>
-        </div>
-      </div>
+  const toggleBtn = (active: boolean, variant: 'call' | 'put') =>
+    active
+      ? variant === 'call'
+        ? 'bg-[hsl(var(--call))] text-white shadow-sm shadow-black/25'
+        : 'bg-[hsl(var(--put))] text-white shadow-sm shadow-black/25'
+      : 'text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] hover:bg-[hsl(var(--background))]/40';
 
-      <Plot
+  return (
+    <div className="panel p-7 sm:p-9 lg:p-10">
+      <SectionHeader
+        title="Option price surface"
+        subtitle="Theory value over strike and implied volatility; the marker shows your current inputs."
+        actions={
+          <div className="segmented" role="group" aria-label="Option type">
+            <button
+              type="button"
+              onClick={() => setOptionType('call')}
+              className={`px-4 py-2.5 rounded-[0.5rem] text-sm font-medium transition-colors ${toggleBtn(optionType === 'call', 'call')}`}
+            >
+              Call
+            </button>
+            <button
+              type="button"
+              onClick={() => setOptionType('put')}
+              className={`px-4 py-2.5 rounded-[0.5rem] text-sm font-medium transition-colors ${toggleBtn(optionType === 'put', 'put')}`}
+            >
+              Put
+            </button>
+          </div>
+        }
+      />
+
+      <div className={chartPanelClass}>
+        <Plot
         data={[
           {
             type: 'surface',
@@ -144,10 +149,11 @@ export function Surface3D({ inputs }: Surface3DProps) {
           modeBarButtonsToRemove: ['toImage', 'sendDataToCloud'],
         }}
         style={{ width: '100%' }}
-      />
+        />
+      </div>
 
-      <p className="text-xs text-[hsl(var(--muted-foreground))] mt-4 text-center">
-        Drag to rotate • Scroll to zoom • Current position marked with diamond
+      <p className="text-xs text-[hsl(var(--muted-foreground))] mt-8 text-center leading-relaxed max-w-lg mx-auto">
+        Drag to rotate · Scroll to zoom · Diamond marks the current strike / vol
       </p>
     </div>
   );

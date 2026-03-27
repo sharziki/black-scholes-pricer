@@ -53,11 +53,13 @@ export function ExportButton({ inputs, result, greeks }: ExportButtonProps) {
 
   return (
     <button
+      type="button"
       onClick={handleExport}
-      className="flex items-center gap-2 px-4 py-2 bg-[hsl(var(--secondary))] hover:bg-[hsl(var(--secondary))]/80 text-[hsl(var(--foreground))] rounded-lg transition-colors text-sm font-medium"
+      className="flex items-center gap-2.5 px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl text-sm font-medium bg-[hsl(var(--primary))]/12 text-[hsl(var(--primary))] ring-1 ring-[hsl(var(--primary))]/25 hover:bg-[hsl(var(--primary))]/20 hover:ring-[hsl(var(--primary))]/40 transition-colors"
     >
-      <Download className="w-4 h-4" />
-      Export CSV
+      <Download className="w-4 h-4 shrink-0 opacity-90" />
+      <span className="hidden min-[420px]:inline">Export CSV</span>
+      <span className="min-[420px]:hidden">Export</span>
     </button>
   );
 }

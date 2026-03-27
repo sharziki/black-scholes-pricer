@@ -15,13 +15,14 @@ export function MathDetails({ inputs, result, greeks }: MathDetailsProps) {
   const { d1, d2, callPrice, putPrice } = result;
 
   return (
-    <div className="bg-[hsl(var(--card))] rounded-xl border border-[hsl(var(--border))] overflow-hidden">
+    <div className="panel overflow-hidden">
       <button
+        type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-[hsl(var(--secondary))]/50 transition-colors"
+        className="w-full px-7 py-5 sm:px-9 sm:py-6 flex items-center justify-between gap-4 text-left hover:bg-[hsl(var(--secondary))]/40 transition-colors"
       >
-        <span className="text-lg font-semibold text-[hsl(var(--foreground))]">
-          Math Details
+        <span className="text-lg font-semibold tracking-tight text-[hsl(var(--foreground))]">
+          Math details
         </span>
         {isOpen ? (
           <ChevronUp className="w-5 h-5 text-[hsl(var(--muted-foreground))]" />
@@ -31,30 +32,30 @@ export function MathDetails({ inputs, result, greeks }: MathDetailsProps) {
       </button>
 
       {isOpen && (
-        <div className="px-6 pb-6 space-y-6 border-t border-[hsl(var(--border))]">
+        <div className="px-7 sm:px-9 pb-8 sm:pb-10 space-y-8 sm:space-y-10 border-t border-[hsl(var(--border))]/80">
           {/* Input Parameters */}
-          <div className="pt-4">
-            <h3 className="text-sm font-semibold text-[hsl(var(--muted-foreground))] uppercase tracking-wider mb-3">
+          <div className="pt-8 sm:pt-9">
+            <h3 className="text-sm font-semibold text-[hsl(var(--muted-foreground))] uppercase tracking-wider mb-4">
               Input Parameters
             </h3>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 font-mono text-sm">
-              <div className="bg-[hsl(var(--secondary))] rounded-lg p-3">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 sm:gap-5 font-mono text-sm">
+              <div className="bg-[hsl(var(--secondary))] rounded-lg p-4">
                 <div className="text-[hsl(var(--muted-foreground))]">S (Spot)</div>
                 <div className="text-[hsl(var(--foreground))] font-semibold">${S.toFixed(2)}</div>
               </div>
-              <div className="bg-[hsl(var(--secondary))] rounded-lg p-3">
+              <div className="bg-[hsl(var(--secondary))] rounded-lg p-4">
                 <div className="text-[hsl(var(--muted-foreground))]">K (Strike)</div>
                 <div className="text-[hsl(var(--foreground))] font-semibold">${K.toFixed(2)}</div>
               </div>
-              <div className="bg-[hsl(var(--secondary))] rounded-lg p-3">
+              <div className="bg-[hsl(var(--secondary))] rounded-lg p-4">
                 <div className="text-[hsl(var(--muted-foreground))]">T (Time)</div>
                 <div className="text-[hsl(var(--foreground))] font-semibold">{T.toFixed(4)} yrs</div>
               </div>
-              <div className="bg-[hsl(var(--secondary))] rounded-lg p-3">
+              <div className="bg-[hsl(var(--secondary))] rounded-lg p-4">
                 <div className="text-[hsl(var(--muted-foreground))]">r (Rate)</div>
                 <div className="text-[hsl(var(--foreground))] font-semibold">{(r * 100).toFixed(2)}%</div>
               </div>
-              <div className="bg-[hsl(var(--secondary))] rounded-lg p-3">
+              <div className="bg-[hsl(var(--secondary))] rounded-lg p-4">
                 <div className="text-[hsl(var(--muted-foreground))]">σ (Vol)</div>
                 <div className="text-[hsl(var(--foreground))] font-semibold">{(sigma * 100).toFixed(2)}%</div>
               </div>
@@ -63,11 +64,11 @@ export function MathDetails({ inputs, result, greeks }: MathDetailsProps) {
 
           {/* Black-Scholes Formula */}
           <div>
-            <h3 className="text-sm font-semibold text-[hsl(var(--muted-foreground))] uppercase tracking-wider mb-3">
+            <h3 className="text-sm font-semibold text-[hsl(var(--muted-foreground))] uppercase tracking-wider mb-4">
               Black-Scholes Formula
             </h3>
-            <div className="bg-[hsl(var(--secondary))] rounded-lg p-4 font-mono text-sm overflow-x-auto">
-              <div className="space-y-4">
+            <div className="bg-[hsl(var(--secondary))] rounded-lg p-5 sm:p-6 font-mono text-sm overflow-x-auto">
+              <div className="space-y-5">
                 <div>
                   <div className="text-[hsl(var(--call))] mb-1">Call Price:</div>
                   <div className="text-[hsl(var(--foreground))]">
@@ -86,10 +87,10 @@ export function MathDetails({ inputs, result, greeks }: MathDetailsProps) {
 
           {/* D1 and D2 Calculation */}
           <div>
-            <h3 className="text-sm font-semibold text-[hsl(var(--muted-foreground))] uppercase tracking-wider mb-3">
+            <h3 className="text-sm font-semibold text-[hsl(var(--muted-foreground))] uppercase tracking-wider mb-4">
               d₁ and d₂ Calculation
             </h3>
-            <div className="bg-[hsl(var(--secondary))] rounded-lg p-4 font-mono text-sm space-y-3">
+            <div className="bg-[hsl(var(--secondary))] rounded-lg p-5 sm:p-6 font-mono text-sm space-y-4">
               <div>
                 <div className="text-[hsl(var(--primary))] mb-1">d₁ Formula:</div>
                 <div className="text-[hsl(var(--foreground))]">
@@ -120,11 +121,11 @@ export function MathDetails({ inputs, result, greeks }: MathDetailsProps) {
 
           {/* Final Calculations */}
           <div>
-            <h3 className="text-sm font-semibold text-[hsl(var(--muted-foreground))] uppercase tracking-wider mb-3">
+            <h3 className="text-sm font-semibold text-[hsl(var(--muted-foreground))] uppercase tracking-wider mb-4">
               Final Calculations
             </h3>
-            <div className="grid md:grid-cols-2 gap-4">
-              <div className="bg-[hsl(var(--call))]/10 border border-[hsl(var(--call))]/30 rounded-lg p-4 font-mono text-sm">
+            <div className="grid md:grid-cols-2 gap-5 sm:gap-6">
+              <div className="bg-[hsl(var(--call))]/10 border border-[hsl(var(--call))]/30 rounded-lg p-5 sm:p-6 font-mono text-sm">
                 <div className="text-[hsl(var(--call))] font-semibold mb-2">Call Option</div>
                 <div className="text-[hsl(var(--foreground))] space-y-1">
                   <div>N(d₁) = {(0.5 * (1 + erf(d1 / Math.sqrt(2)))).toFixed(6)}</div>
@@ -135,7 +136,7 @@ export function MathDetails({ inputs, result, greeks }: MathDetailsProps) {
                   </div>
                 </div>
               </div>
-              <div className="bg-[hsl(var(--put))]/10 border border-[hsl(var(--put))]/30 rounded-lg p-4 font-mono text-sm">
+              <div className="bg-[hsl(var(--put))]/10 border border-[hsl(var(--put))]/30 rounded-lg p-5 sm:p-6 font-mono text-sm">
                 <div className="text-[hsl(var(--put))] font-semibold mb-2">Put Option</div>
                 <div className="text-[hsl(var(--foreground))] space-y-1">
                   <div>N(-d₁) = {(0.5 * (1 + erf(-d1 / Math.sqrt(2)))).toFixed(6)}</div>
@@ -151,10 +152,10 @@ export function MathDetails({ inputs, result, greeks }: MathDetailsProps) {
 
           {/* Greeks Formulas */}
           <div>
-            <h3 className="text-sm font-semibold text-[hsl(var(--muted-foreground))] uppercase tracking-wider mb-3">
+            <h3 className="text-sm font-semibold text-[hsl(var(--muted-foreground))] uppercase tracking-wider mb-4">
               Greeks Formulas
             </h3>
-            <div className="bg-[hsl(var(--secondary))] rounded-lg p-4 font-mono text-sm space-y-2">
+            <div className="bg-[hsl(var(--secondary))] rounded-lg p-5 sm:p-6 font-mono text-sm space-y-3">
               <div><span className="text-[hsl(var(--primary))]">Δ</span> Delta (Call) = N(d₁) = {greeks.delta.call.toFixed(4)}</div>
               <div><span className="text-[hsl(var(--primary))]">Δ</span> Delta (Put) = N(d₁) - 1 = {greeks.delta.put.toFixed(4)}</div>
               <div><span className="text-[hsl(var(--primary))]">Γ</span> Gamma = N'(d₁) / (S × σ × √T) = {greeks.gamma.toFixed(6)}</div>

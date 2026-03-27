@@ -1,5 +1,7 @@
 import { Plot } from '../lib/plotlyPlot';
 import { useState } from 'react';
+import { SectionHeader } from './SectionHeader';
+import { chartPanelClass } from './chartClasses';
 import { generateGreekSensitivity } from '../lib/blackScholes';
 import type { BlackScholesInputs } from '../lib/blackScholes';
 
@@ -29,43 +31,50 @@ export function GreekSensitivity({ inputs }: GreekSensitivityProps) {
   const data = generateGreekSensitivity(inputs, selectedGreek, priceRange);
 
   return (
-    <div className="bg-[hsl(var(--card))] rounded-xl border border-[hsl(var(--border))] p-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
-        <h2 className="text-lg font-semibold text-[hsl(var(--foreground))]">
-          Greek Sensitivity
-        </h2>
-        <div className="flex flex-wrap gap-2">
-          {(Object.keys(greekInfo) as GreekType[]).map((greek) => (
-            <button
-              key={greek}
-              onClick={() => setSelectedGreek(greek)}
-              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
-                selectedGreek === greek
-                  ? 'bg-[hsl(var(--primary))] text-white'
-                  : 'bg-[hsl(var(--secondary))] text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))]'
-              }`}
-            >
-              {greekInfo[greek].symbol}
-            </button>
-          ))}
+    <div className="panel p-7 sm:p-9 lg:p-10">
+      <SectionHeader
+        title="Greek sensitivity"
+        subtitle="How each Greek moves as spot changes, holding other inputs fixed."
+        actions={
+          <div className="segmented justify-center sm:justify-end max-w-full" role="tablist" aria-label="Select Greek">
+            {(Object.keys(greekInfo) as GreekType[]).map((greek) => (
+              <button
+                key={greek}
+                type="button"
+                role="tab"
+                aria-selected={selectedGreek === greek}
+                onClick={() => setSelectedGreek(greek)}
+                className={`min-w-[2.5rem] px-3 py-2.5 text-sm font-semibold transition-colors rounded-[0.5rem] ${
+                  selectedGreek === greek
+                    ? 'bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] shadow-sm shadow-black/20'
+                    : 'text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] hover:bg-[hsl(var(--background))]/40'
+                }`}
+              >
+                {greekInfo[greek].symbol}
+              </button>
+            ))}
+          </div>
+        }
+      />
+
+      <div className="mb-8 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))]/45 px-5 py-4 sm:px-6 sm:py-5 shadow-inner shadow-black/10">
+        <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-4">
+          <div className="flex items-baseline gap-2 shrink-0">
+            <span className="text-lg font-semibold tabular-nums text-[hsl(var(--primary))]">
+              {greekInfo[selectedGreek].symbol}
+            </span>
+            <span className="text-sm font-medium text-[hsl(var(--foreground))]">
+              {greekInfo[selectedGreek].name}
+            </span>
+          </div>
+          <span className="text-sm text-[hsl(var(--muted-foreground))] leading-snug">
+            {greekInfo[selectedGreek].description}
+          </span>
         </div>
       </div>
 
-      <div className="mb-4 p-3 bg-[hsl(var(--secondary))] rounded-lg">
-        <div className="flex items-center gap-2">
-          <span className="text-xl font-bold text-[hsl(var(--primary))]">
-            {greekInfo[selectedGreek].symbol}
-          </span>
-          <span className="text-[hsl(var(--foreground))] font-medium">
-            {greekInfo[selectedGreek].name}
-          </span>
-          <span className="text-[hsl(var(--muted-foreground))] text-sm">
-            — {greekInfo[selectedGreek].description}
-          </span>
-        </div>
-      </div>
-
-      <Plot
+      <div className={chartPanelClass}>
+        <Plot
         data={[
           {
             x: data.prices,
@@ -144,7 +153,8 @@ export function GreekSensitivity({ inputs }: GreekSensitivityProps) {
           displayModeBar: false,
         }}
         style={{ width: '100%' }}
-      />
+        />
+      </div>
     </div>
   );
 }
