@@ -43,8 +43,8 @@ function App() {
       <header className="sticky top-0 z-50 border-b border-[hsl(var(--border))]/80 bg-[hsl(var(--card))]/75 backdrop-blur-md backdrop-saturate-150">
         <div className="max-w-[90rem] mx-auto px-5 sm:px-8 lg:px-12 py-4 sm:py-5">
           <div className="flex items-center justify-between gap-5 sm:gap-8">
-            <div className="flex items-center gap-4 min-w-0">
-              <div className="p-3 rounded-xl bg-[hsl(var(--primary))]/12 ring-1 ring-[hsl(var(--primary))]/20 shadow-sm shrink-0">
+            <div className="flex items-center gap-6 min-w-0">
+              <div className="p-5 rounded-2xl bg-[hsl(var(--primary))]/12 ring-1 ring-[hsl(var(--primary))]/20 shadow-sm shrink-0">
                 <Activity className="w-5 h-5 sm:w-6 sm:h-6 text-[hsl(var(--primary))]" strokeWidth={2.25} />
               </div>
               <div className="min-w-0">
@@ -56,13 +56,13 @@ function App() {
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-3 sm:gap-4 shrink-0">
+            <div className="flex items-center gap-6 sm:gap-6 shrink-0">
               <ExportButton inputs={inputs} result={result} greeks={greeks} />
               <a
                 href="https://github.com/sharziki/black-scholes-pricer"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 rounded-xl text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] hover:bg-[hsl(var(--secondary))] transition-colors"
+                className="p-2.5 rounded-2xl text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] hover:bg-[hsl(var(--secondary))] transition-colors"
                 aria-label="View source on GitHub"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -136,7 +136,7 @@ function App() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 sm:gap-5">
+            <div className="grid grid-cols-2 gap-6 sm:gap-5">
               <PriceCard
                 type="call"
                 price={result.callPrice}
@@ -158,7 +158,7 @@ function App() {
                 title="Greeks"
                 subtitle="Risk sensitivities for the current Black-Scholes inputs; bars are scaled per Greek’s typical range."
               />
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-5 lg:gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6 sm:gap-5 lg:gap-6">
                 <GreekGauge
                   name="Delta"
                   symbol="Δ"
