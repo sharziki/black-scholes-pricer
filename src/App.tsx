@@ -228,7 +228,15 @@ function App() {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-5 sm:gap-8 text-sm text-[hsl(var(--muted-foreground))]">
             <p>Black-Scholes Options Pricer — Educational purposes only</p>
             <p>
-              Built with React, TypeScript, and Plotly
+              Made by{' '}
+              <a 
+                href="https://github.com/sharziki" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-[hsl(var(--primary))] hover:underline"
+              >
+                Sharvil Saxena
+              </a>
             </p>
           </div>
         </div>
